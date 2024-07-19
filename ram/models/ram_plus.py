@@ -396,7 +396,19 @@ class RAM_plus(nn.Module):
             tag_output.append(' | '.join(token))
 
         return tag_output
-
+    def extract_latent_features(self, x):
+        """
+        Extracts the latent features from the visual encoder.
+        
+        Args:
+            x: torch.Tensor of shape (batch_size, 3, image_size, image_size)
+        
+        Returns:
+            torch.Tensor: latent features
+        """
+        with torch.no_grad():
+            latent_features = self.visual_encoder(x)
+        return latent_features
 
 # load RAM++ pretrained model parameters
 def ram_plus(pretrained='', **kwargs):
